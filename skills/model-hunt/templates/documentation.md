@@ -39,7 +39,10 @@ who chose it and whether it was reviewed.>
 
 **Secondary metrics:** <list, with definitions where nonstandard.>
 
-**Tie-break rule as applied:** <the rule, and which ties it actually broke.>
+**Selection policy as applied:** <Strict optimization, or equivalence-with-fallback.
+If the latter: the band width *k*, the fact that it is measured on the paired per-fold
+difference, the fallback criteria in order, and which criterion actually broke the
+tie.>
 
 <If the metric is threshold-dependent: the threshold, the distribution of the
 underlying quantity around it, how many cases sit near the boundary, and confirmation
@@ -120,8 +123,18 @@ will want these.>
 
 **Mean ± standard error:** <value>
 
-**Runner-up:** <configuration and margin; whether the difference was significant; which
-tie-break rule decided it, if any.>
+**Raw argmax vs. policy winner:** <Both, always, with the metric difference between
+them. If they are the same configuration, say so explicitly — that is informative.>
+
+**Tied set** <if an equivalence policy was used — every configuration within the band,
+not just the winner. A future session asked "why not the highest-scoring one?" must be
+able to answer from this table alone.>
+
+| config_id | <primary metric> ± SE | paired Δ from best ± SE | <fallback criterion 1> | <fallback criterion 2> | selected |
+|---|---|---|---|---|---|
+
+**Runner-up outside the tied set:** <configuration and margin; whether the difference
+exceeded the uncertainty in the difference.>
 
 **Baseline for comparison:** <trivial baseline score, and the best linear model.>
 

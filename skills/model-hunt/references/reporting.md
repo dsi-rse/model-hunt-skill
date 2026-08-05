@@ -38,7 +38,11 @@ finishes.**
 - `family` — random_forest, gbdt, mlp, cnn, …
 - `representation_id` — which input representation, and a hash of its preprocessing parameters
 - `hyperparameters` — the **complete** dict, not a summary
-- `n_parameters` — model size, for the parsimony tie-break
+- `n_parameters`, `serialized_bytes` — model size
+- **the value of every fallback criterion** the user named in `intake.md` §C7b — inference latency,
+  training cost, fold-to-fold variance, calibration error, dependency count, whatever it is. If a
+  criterion may decide the winner, it has to be recorded for *every* candidate at the time it runs;
+  reconstructing it afterward means reloading and re-timing models that may no longer exist.
 - `code_version` — git SHA or equivalent
 
 **Split**

@@ -35,8 +35,18 @@ metric matches the stated goal, and what it deliberately does not reward.>
 
 **Secondary metrics reported alongside:** <list>
 
-**Tie-break rule:** statistically equivalent within <k> standard deviations → fewer
-parameters → simpler to describe → cheaper to run.
+**Selection policy:** <One of the two. Do not default silently — the user chose this.>
+
+<EITHER: "Strict optimization — highest mean <metric> wins; no fallback criterion is
+applied." Note whether the margin over the runner-up is expected to exceed the noise.>
+
+<OR: "Equivalence with a fallback — configurations within <k> standard errors of the
+best are tied; among them, prefer <the user's criteria, in their order>." State that
+the standard error is that of the *paired per-fold difference*, not each
+configuration's own.>
+
+Both winners will be reported — the raw argmax and the policy winner — with the metric
+difference between them.
 
 ## Data
 

@@ -101,15 +101,40 @@ an effect size compared against a spread, and honesty about which comparisons we
 is expected to look good partly by luck. That is what §4 is about, and it is why the tie-break rule
 exists.
 
-**Apply the tie-break rule** agreed at intake (`intake.md` §C7), in order:
+**Apply the selection policy** agreed at intake (`intake.md` §C7). The user chose one of two:
 
-1. If the difference is within *k* standard deviations (default 2.5), they are **tied**.
-2. Prefer **fewer parameters**.
-3. Prefer the one that is **simpler to describe**.
-4. Prefer the one that is **cheaper** to train or run.
+**Strict optimization** — the highest mean primary metric wins. Nothing further is applied. Still
+report the runner-up and its margin, and state whether that margin exceeds the uncertainty in the
+margin, so the reader can see how arbitrary the choice was. When it doesn't, say so: "the winner
+beat the runner-up by less than the noise" is an honest and useful sentence.
 
-Applied honestly, this rule usually picks something smaller and more robust than the raw maximum,
-which is the point. Record which rule broke each tie.
+**Equivalence with a fallback** — the *one-standard-error rule*, generalized:
+
+1. **Build the tied set.** A configuration is tied with the best if its paired per-fold difference
+   from the best is within *k* standard errors of zero.
+
+   **Use the standard error of the paired difference**, `std(per_fold_differences) / sqrt(n_folds)`
+   — *not* each configuration's own standard error, and not the quadrature sum of the two. Because
+   every configuration ran on identical folds (§2), fold difficulty cancels in the difference, and
+   the paired standard error is typically several times smaller. Using the wrong one is not a
+   rounding difference: it can inflate a tied set from a few configurations to nearly the whole
+   candidate list, at which point the fallback criterion — not the metric — is silently selecting
+   the model.
+
+2. **Order the tied set** by the user's fallback criteria, in the order they specified (§C7b).
+   These may be parsimony, inference cost, training cost, fold-to-fold variance, calibration,
+   interpretability, or anything else they named. Do not substitute parsimony because it is the
+   usual choice.
+
+3. **Record the entire tied set**, not just the winner — with each member's primary metric, its
+   paired difference from the best, and its value on each fallback criterion. A future session
+   asked "why not the one with the highest score?" must be able to answer from the documentation.
+
+**Under either policy, report both winners**: the raw argmax and the policy winner, with the metric
+difference between them. If the policy cost measurable performance, the user should see that number
+and be free to overrule it — which they can do from the ledger, without re-running anything.
+
+Record which criterion broke each tie.
 
 ---
 

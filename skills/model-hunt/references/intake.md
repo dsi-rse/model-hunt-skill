@@ -160,17 +160,58 @@ Say this in the plan; the user may well want to revise the threshold once they s
 secondary metrics catch pathologies it hides (a balanced-accuracy winner with terrible calibration,
 an R² winner with structured residuals).
 
-**C7. What is the tie-break rule?** When two configurations are statistically indistinguishable,
-which wins?
-*Recommend, and confirm:*
-1. Statistical equivalence first — if the difference is within *k* standard deviations (2.5 is a
-   reasonable default; ask), treat them as tied.
-2. Then prefer fewer parameters.
-3. Then prefer the one that is simpler to describe.
-4. Then prefer the one that is cheaper to train or to run.
+**C7. How is the winner selected — strict optimization, or equivalence with a fallback?**
 
-*Why:* without a stated rule, "best" silently means "highest mean," which reliably selects
-overfitted noise at the top of a long candidate list.
+This is a genuine choice and the user must make it. Present both:
+
+- **Strict optimization.** The highest mean primary metric wins, full stop. Appropriate when
+  reporting a benchmark number, when comparability with a published result matters more than
+  anything else, or when no secondary criterion is meaningful for this problem. *Say the downside
+  plainly when offering it:* with many candidates and a modest dataset, the raw maximum reliably
+  selects the configuration with the most favorable noise, and its margin over the runner-up is
+  often smaller than the uncertainty in that margin.
+
+- **Equivalence with a fallback** *(recommended default)*. Configurations statistically
+  indistinguishable from the best are declared **tied**, and a secondary criterion chooses among
+  them. This is the *one-standard-error rule* from the decision-tree and regularization-path
+  literature, and it usually returns a smaller, more robust model at negligible metric cost.
+
+*Why it matters:* without an explicit answer, "best" silently means "highest mean" — strict
+optimization by default, chosen by nobody.
+
+If they choose equivalence, two follow-ups:
+
+**C7a. How wide is the equivalence band?** *k* standard errors from the best.
+- *k* = 1 is the classical one-standard-error rule.
+- Larger *k* (2, 2.5) declares more ties and leans harder on the fallback criterion.
+- *k* = 0 collapses to strict optimization.
+
+**Be explicit about which standard error**, and say so in the plan: it is the standard error *of the
+paired per-fold difference* between the two configurations, not each configuration's own standard
+error. Because every configuration ran on identical folds, the paired quantity is the correct one
+and it is typically much smaller — the two readings can differ by enough to change a tie set from
+three configurations to thirty. See `protocol.md` §3.
+
+**C7b. What is the fallback criterion, and in what order?** Do not assume simplicity. Offer a menu
+and let the user order it:
+- fewer parameters, or smaller serialized size
+- faster inference — latency or throughput
+- cheaper or faster to train
+- **lower fold-to-fold variance** (robustness rather than peak score)
+- better calibration, or a better secondary metric
+- more interpretable, or easier to describe and defend
+- fewer dependencies, or a family already deployed elsewhere in the stack
+
+*Default if the user has no preference:* fewer parameters → simpler to describe → cheaper to run.
+
+*Distinguish this from §E2.* A criterion that is a **hard requirement** (must fit in 50 MB, must
+respond in 10 ms) is a **filter on the search space**, applied before the search. §C7b is for
+**preferences among models that are all already acceptable**. Ask which one a stated constraint is;
+users often state a hard limit and a soft preference in the same breath.
+
+**Regardless of the policy chosen, report both winners** — the raw argmax and the policy winner —
+with the metric difference between them. It costs nothing, it shows the user exactly what the policy
+bought or cost, and it lets them overrule it without re-running anything.
 
 ---
 

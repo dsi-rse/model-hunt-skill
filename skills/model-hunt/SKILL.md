@@ -96,6 +96,9 @@ invalidates the whole campaign:
 
 - the prediction target and task type
 - **the evaluation metric**
+- **the selection policy** — strict optimization of that metric, or statistical equivalence with a
+  fallback criterion (see `intake.md` §C7). Never decide this by default; "highest mean wins" is a
+  policy, not the absence of one.
 - the unit of independence (what makes two examples non-independent — see `intake.md` §B)
 - the wall-clock time-box
 - every output path and filename (see `intake.md` §G — assume *nothing* here)
@@ -136,6 +139,9 @@ The plan must contain:
 - **The metric, verbatim**, with its rationale and its exact definition — including any nonstandard
   weighting, written out as a formula or as pseudocode, not named. If you chose or modified it,
   mark it clearly for the user's review.
+- **The selection policy**: strict optimization, or equivalence with a fallback — and if the
+  latter, the band width *k*, the statement that it is measured on the paired per-fold difference,
+  and the fallback criteria in the user's order (`references/protocol.md` §3).
 - **The eligible dataset**: exclusions applied, with row counts before and after each.
 - **The split construction**: the kind of split, the seed, and the guarantee that the same fold
   assignment is reused by every configuration.
