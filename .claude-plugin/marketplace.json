@@ -2,9 +2,8 @@
   "name": "model-hunt-skill",
   "version": "0.1.0",
   "description": "A Claude Code skill for running disciplined, time-boxed supervised machine-learning model searches.",
-  "repository": "https://github.com/dsi-clinic/model-hunt-skill",
   "owner": {
-    "name": "UChicago Data Science Clinic"
+    "name": "UChicago Data Science Institute"
   },
   "plugins": [
     {
