@@ -1,0 +1,17 @@
+# Private source material used to derive this skill; never publish.
+previous-model-hunts/
+repos/
+
+# Editors and OS cruft
+*.swp
+*~
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
