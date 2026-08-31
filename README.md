@@ -32,14 +32,14 @@ those fixed and extend the existing harness. See [#Alternatives](Alternatives).
 **As a plugin** (recommended):
 
 ```
-/plugin marketplace add dsi-clinic/model-hunt-skill
+/plugin marketplace add dsi-rse/model-hunt-skill
 /plugin install model-hunt
 ```
 
 **As a plain skill:**
 
 ```bash
-git clone https://github.com/dsi-clinic/model-hunt-skill.git
+git clone https://github.com/dsi-rse/model-hunt-skill.git
 cp -r model-hunt-skill/skills/model-hunt ~/.claude/skills/
 ```
 

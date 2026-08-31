@@ -5,8 +5,8 @@
   "author": {
     "name": "UChicago Data Science Institute"
   },
-  "homepage": "https://github.com/dsi-clinic/model-hunt-skill",
-  "repository": "https://github.com/dsi-clinic/model-hunt-skill",
+  "homepage": "https://github.com/dsi-rse/model-hunt-skill",
+  "repository": "https://github.com/dsi-rse/model-hunt-skill",
   "license": "BSD-3-Clause",
   "keywords": [
     "machine-learning",
