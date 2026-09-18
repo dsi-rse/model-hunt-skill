@@ -1,3 +1,30 @@
+> [!IMPORTANT]
+> ## This skill has moved
+>
+> `model-hunt` now lives in the DSI RSE team's shared skills repository,
+> **[dsi-rse/skills](https://github.com/dsi-rse/skills)**, at
+> [`skills/engineering/model-hunt/`](https://github.com/dsi-rse/skills/tree/main/skills/engineering/model-hunt).
+> This repository is archived and no longer maintained; please file issues and pull
+> requests against `dsi-rse/skills`.
+>
+> Install it from there with the skills CLI:
+>
+> ```bash
+> npx skills add dsi-rse/skills --skill model-hunt
+> ```
+>
+> or as a Claude Code plugin, which brings the team's other skills with it:
+>
+> ```bash
+> claude plugin marketplace add dsi-rse/skills
+> claude plugin install dsi-rse-skills@dsi-rse
+> ```
+>
+> If you installed this repository as a plugin, remove the old marketplace first:
+> `claude plugin marketplace remove model-hunt-skill`.
+
+---
+
 # model-hunt
 
 A [Claude Code](https://claude.com/claude-code) skill for running disciplined, time-boxed searches
